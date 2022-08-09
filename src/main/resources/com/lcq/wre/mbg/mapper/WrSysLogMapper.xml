@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcq.wre.mbg.mapper.WrSysLogMapper">
+  <resultMap id="BaseResultMap" type="com.lcq.wre.mbg.model.WrSysLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="create_date" jdbcType="BIGINT" property="createDate" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="params" jdbcType="VARCHAR" property="params" />
+    <result column="time" jdbcType="BIGINT" property="time" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, create_date, ip, method, module, nickname, operation, params, time, userid
+  </sql>
+  <select id="selectByExample" parameterType="com.lcq.wre.mbg.model.WrSysLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wr_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wr_sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wr_sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lcq.wre.mbg.model.WrSysLogExample">
+    delete from wr_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lcq.wre.mbg.model.WrSysLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wr_sys_log (create_date, ip, method, 
+      module, nickname, operation, 
+      params, time, userid)
+    values (#{createDate,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{module,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{params,jdbcType=VARCHAR}, #{time,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcq.wre.mbg.model.WrSysLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wr_sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="module != null">
+        module,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="createDate != null">
+        #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lcq.wre.mbg.model.WrSysLogExample" resultType="java.lang.Integer">
+    select count(*) from wr_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wr_sys_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=BIGINT},
+      </if>
+      <if test="record.ip != null">
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null">
+        method = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.module != null">
+        module = #{record.module,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operation != null">
+        operation = #{record.operation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.params != null">
+        params = #{record.params,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=BIGINT},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wr_sys_log
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=BIGINT},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      method = #{record.method,jdbcType=VARCHAR},
+      module = #{record.module,jdbcType=VARCHAR},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      operation = #{record.operation,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcq.wre.mbg.model.WrSysLog">
+    update wr_sys_log
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="module != null">
+        module = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcq.wre.mbg.model.WrSysLog">
+    update wr_sys_log
+    set create_date = #{createDate,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      module = #{module,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
+      time = #{time,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,92 @@
+package com.lcq.wre.service;
+
+import com.lcq.wre.dto.ArticleVo;
+import com.lcq.wre.dto.Result;
+import com.lcq.wre.dto.param.ArticleParam;
+import com.lcq.wre.dto.param.FavoritesParam;
+import com.lcq.wre.dto.param.PageParams;
+
+public interface ArticleService {
+    /**
+     * 分页查询 文章列表
+     * @param pageParams
+     * @return
+     */
+    Result listArticles(PageParams pageParams);
+
+    /**
+     * 最热文章
+     * @param limit
+     * @return
+     */
+    Result hotArticles(int limit);
+
+    /**
+     * 最新文章
+     * @param limit
+     * @return
+     */
+    Result newArticles(int limit);
+
+    /**
+     * 文章归档
+     * @return
+     */
+    Result listArchives();
+
+    /**
+     * 查看文章详情
+     * @param id
+     * @return
+     */
+    ArticleVo findArticleById(Long id);
+
+    /**
+     * 发布文章
+     * @param articleParam
+     * @return
+     */
+    Result publish(ArticleParam articleParam);
+
+    /**
+     * 删除对应文章
+     * @param id
+     * @return
+     */
+    Result delete(Long id);
+
+    /**
+     * 置顶
+     * @param id
+     * @return
+     */
+    Result setTop(Long id);
+
+    /**
+     * 查询收藏夹文章列表
+     * @param userId
+     * @return
+     */
+    Result getFavoritesArticle(String userId);
+
+    /**
+     * 收藏文章
+     * @param favoritesParam
+     * @return
+     */
+    Result addFavoritesArticle(FavoritesParam favoritesParam);
+
+    /**
+     * 查询是否收藏某文章
+     * @param favoritesParam
+     * @return
+     */
+    Result getIsFavorites(FavoritesParam favoritesParam);
+
+    /**
+     * 取消收藏
+     * @param favoritesParam
+     * @return
+     */
+    Result delFavoritesArticle(FavoritesParam favoritesParam);
+}

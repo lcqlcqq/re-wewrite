@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcq.wre.mbg.mapper.WrArticleMapper">
+  <resultMap id="BaseResultMap" type="com.lcq.wre.mbg.model.WrArticle">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="comment_counts" jdbcType="INTEGER" property="commentCounts" />
+    <result column="create_date" jdbcType="BIGINT" property="createDate" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="view_counts" jdbcType="INTEGER" property="viewCounts" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="author_id" jdbcType="BIGINT" property="authorId" />
+    <result column="body_id" jdbcType="BIGINT" property="bodyId" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, comment_counts, create_date, summary, title, view_counts, weight, author_id, 
+    body_id, category_id
+  </sql>
+  <select id="selectByExample" parameterType="com.lcq.wre.mbg.model.WrArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wr_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wr_article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wr_article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lcq.wre.mbg.model.WrArticleExample">
+    delete from wr_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lcq.wre.mbg.model.WrArticle">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wr_article (comment_counts, create_date, summary, 
+      title, view_counts, weight, 
+      author_id, body_id, category_id
+      )
+    values (#{commentCounts,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT}, #{summary,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{viewCounts,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, 
+      #{authorId,jdbcType=BIGINT}, #{bodyId,jdbcType=BIGINT}, #{categoryId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcq.wre.mbg.model.WrArticle">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wr_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentCounts != null">
+        comment_counts,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="viewCounts != null">
+        view_counts,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="bodyId != null">
+        body_id,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentCounts != null">
+        #{commentCounts,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCounts != null">
+        #{viewCounts,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="bodyId != null">
+        #{bodyId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lcq.wre.mbg.model.WrArticleExample" resultType="java.lang.Integer">
+    select count(*) from wr_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update wr_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.commentCounts != null">
+        comment_counts = #{record.commentCounts,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=BIGINT},
+      </if>
+      <if test="record.summary != null">
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewCounts != null">
+        view_counts = #{record.viewCounts,jdbcType=INTEGER},
+      </if>
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorId != null">
+        author_id = #{record.authorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.bodyId != null">
+        body_id = #{record.bodyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update wr_article
+    set id = #{record.id,jdbcType=BIGINT},
+      comment_counts = #{record.commentCounts,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=BIGINT},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      view_counts = #{record.viewCounts,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=INTEGER},
+      author_id = #{record.authorId,jdbcType=BIGINT},
+      body_id = #{record.bodyId,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcq.wre.mbg.model.WrArticle">
+    update wr_article
+    <set>
+      <if test="commentCounts != null">
+        comment_counts = #{commentCounts,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCounts != null">
+        view_counts = #{viewCounts,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="bodyId != null">
+        body_id = #{bodyId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcq.wre.mbg.model.WrArticle">
+    update wr_article
+    set comment_counts = #{commentCounts,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=BIGINT},
+      summary = #{summary,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      view_counts = #{viewCounts,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=BIGINT},
+      body_id = #{bodyId,jdbcType=BIGINT},
+      category_id = #{categoryId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
