@@ -2,6 +2,7 @@ package com.lcq.wre.controller;
 
 import com.lcq.wre.config.Swagger2Config;
 import com.lcq.wre.dto.Result;
+import com.lcq.wre.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class LogoutController {
 
     @GetMapping
     @ApiOperation("用户登出")
-    @LogAnnotation(module = "登出",operation = "用户登出")
+//    @LogAnnotation(module = "登出",operation = "用户登出")
     public Result logout(@RequestHeader("Authorization") String token){
         return loginService.logout(token);
     }

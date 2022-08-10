@@ -3,6 +3,7 @@ package com.lcq.wre.controller;
 import com.lcq.wre.config.Swagger2Config;
 import com.lcq.wre.dto.Result;
 import com.lcq.wre.dto.param.TagParam;
+import com.lcq.wre.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

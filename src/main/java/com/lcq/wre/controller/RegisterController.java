@@ -3,6 +3,7 @@ package com.lcq.wre.controller;
 import com.lcq.wre.config.Swagger2Config;
 import com.lcq.wre.dto.Result;
 import com.lcq.wre.dto.param.LoginParam;
+import com.lcq.wre.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class RegisterController {
      */
     @PostMapping
     @ApiOperation("用户注册")
-    @LogAnnotation(module = "注册",operation = "用户注册")
+//    @LogAnnotation(module = "注册",operation = "用户注册")
     public Result register(@RequestBody LoginParam loginParam){
         return loginService.register(loginParam);
     }

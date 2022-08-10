@@ -1,7 +1,7 @@
 package com.lcq.wre.dto.param;
 
-import com.quan.wewrite.vo.CategoryVo;
-import com.quan.wewrite.vo.TagVo;
+import com.lcq.wre.dto.CategoryVo;
+import com.lcq.wre.dto.TagVo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

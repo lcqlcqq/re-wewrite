@@ -3,6 +3,7 @@ package com.lcq.wre.controller;
 import com.lcq.wre.config.Swagger2Config;
 import com.lcq.wre.dto.Result;
 import com.lcq.wre.dto.param.CategoryParam;
+import com.lcq.wre.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("categorys")
 public class CategoryController {
 
+    @Autowired
+    CategoryService categoryService;
     /**
      * 所有文章分类
      * @return
