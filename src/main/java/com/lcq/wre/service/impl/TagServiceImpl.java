@@ -33,8 +33,8 @@ public class TagServiceImpl implements TagService {
 //    private RedisTemplate<String,String> redisTemplate;
     @Autowired
     RedisService redisService;
-    @Autowired
-    private RocketMQTemplate rocketMQTemplate;
+//    @Autowired
+//    private RocketMQTemplate rocketMQTemplate;
 
     public TagVo copy(Tag tag){
         TagVo tagVo = new TagVo();
@@ -150,7 +150,7 @@ public class TagServiceImpl implements TagService {
             Set<String> keys = redisService.getKeys(REDIS_KEY_PREFIX_TAG + "*");
             //删除缓存失败了
             if(redisService.remove(keys) <= 0) {
-                rocketMQTemplate.convertAndSend("blog-deleteArticle-failed",keys);
+//                rocketMQTemplate.convertAndSend("blog-deleteArticle-failed",keys);
             }
             return Result.success("标签删除成功");
         }

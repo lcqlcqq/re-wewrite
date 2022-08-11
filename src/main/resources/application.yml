@@ -24,8 +24,6 @@ mybatis:
     - classpath:mapper/*.xml
     - classpath*:com/**/mapper/*.xml
 
-
-
 # 自定义redis key
 redis:
   key:

@@ -209,7 +209,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         //删除缓存失败了
         if (redisService.remove(keys) <= 0) {
-            rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
+//            rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
         }
         return Result.success(map);
     }
@@ -244,7 +244,7 @@ public class ArticleServiceImpl implements ArticleService {
                 , REDIS_KEY_PREFIX_CATEGORY+"*");
         //删除缓存失败了
         if (redisService.remove(keys) <= 0) {
-            rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
+//            rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
         }
         return Result.success(amd);
     }
@@ -262,7 +262,7 @@ public class ArticleServiceImpl implements ArticleService {
         Set<String> keys = redisService.getKeys(REDIS_KEY_PREFIX_ARTICLE+"*");
         //删除缓存失败了
         if (redisService.remove(keys) <= 0) {
-            rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
+//            rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
         }
         return Result.success(updateRes);
     }

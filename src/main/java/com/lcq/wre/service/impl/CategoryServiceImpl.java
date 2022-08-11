@@ -37,8 +37,8 @@ public class CategoryServiceImpl implements CategoryService {
     RedisService redisService;
     @Autowired
     private ArticleMapper articleMapper;
-    @Autowired
-    private RocketMQTemplate rocketMQTemplate;
+//    @Autowired
+//    private RocketMQTemplate rocketMQTemplate;
 
     @Override
     public CategoryVo findCategoryById(Long id) {
@@ -105,7 +105,7 @@ public class CategoryServiceImpl implements CategoryService {
             Set<String> keys = redisService.getKeys(REDIS_KEY_PREFIX_CATEGORY + "*");
             //删除缓存失败了
             if (redisService.remove(keys) <= 0) {
-                rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
+//                rocketMQTemplate.convertAndSend("blog-deleteArticle-failed", keys);
             }
         }
 

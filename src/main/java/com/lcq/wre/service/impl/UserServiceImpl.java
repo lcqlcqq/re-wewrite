@@ -12,6 +12,7 @@ import com.lcq.wre.dto.UserVo;
 import com.lcq.wre.service.LoginService;
 import com.lcq.wre.service.RedisService;
 import com.lcq.wre.service.UserService;
+import com.lcq.wre.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
          *      是否为空，解析是否成功，redis是否存在
          * 2. 校验失败就报错；校验成功就返回对应结果
          */
-        Map<String, Object> map = JWTUtils.checkToken(token);
+        Map<String, Object> map = JwtUtil.checkToken(token);
         if (map == null){
             return Result.fail(ErrorCode.LOGIN_STATE_ERROR.getCode(),ErrorCode.LOGIN_STATE_ERROR.getMsg());
         }

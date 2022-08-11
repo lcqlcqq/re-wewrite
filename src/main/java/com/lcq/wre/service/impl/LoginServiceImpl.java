@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lcq.wre.dto.param.LoginEmailParam;
 import com.lcq.wre.dto.param.ResetPwdParam;
 import com.lcq.wre.service.RedisService;
+import com.lcq.wre.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -69,7 +70,7 @@ public class LoginServiceImpl implements LoginService {
         //登录成功，更新最近一次登录时间。
         sysUserService.updateLastLoginTime(new Date(), user.getId());
         //登录成功，使用JWT生成token，返回token和redis中
-        String token = JWTUtils.createToken(user.getId());
+        String token = JwtUtil.generateToken(user.getId());
 //        redisTemplate.opsForValue().set("TOKEN_"+token, JSON.toJSONString(sysUser),1, TimeUnit.DAYS);
         redisService.set(REDIS_KEY_PREFIX_TOKEN + token, JSON.toJSONString(user), TOKEN_EXPIRE_HOURS, TimeUnit.HOURS);
         System.out.println("login.");
@@ -120,7 +121,7 @@ public class LoginServiceImpl implements LoginService {
         this.sysUserService.save(user);
 
         //token生成
-        String token = JWTUtils.createToken(user.getId());
+        String token = JwtUtil.generateToken(user.getId());
         //存token
         redisService.set(REDIS_KEY_PREFIX_TOKEN + token, JSON.toJSONString(user), TOKEN_EXPIRE_HOURS, TimeUnit.DAYS);
         return Result.success(token);
@@ -161,7 +162,7 @@ public class LoginServiceImpl implements LoginService {
             return Result.fail(ErrorCode.EMAIL_PWD_NOT_EXIST.getCode(), ErrorCode.EMAIL_PWD_NOT_EXIST.getMsg());
         }
         //登录成功，使用JWT生成token，返回token和redis中
-        String token = JWTUtils.createToken(user.getId());
+        String token = JwtUtil.generateToken(user.getId());
         redisService.set(REDIS_KEY_PREFIX_TOKEN + token, JSON.toJSONString(user), TOKEN_EXPIRE_HOURS, TimeUnit.DAYS);
         return Result.success(token);
     }
@@ -171,7 +172,7 @@ public class LoginServiceImpl implements LoginService {
         if (StringUtils.isBlank(token)) {
             return null;
         }
-        Map<String, Object> stringObjectMap = JWTUtils.checkToken(token);
+        Map<String, Object> stringObjectMap = JwtUtil.checkToken(token);
         if (stringObjectMap == null) {
             return null;
         }
